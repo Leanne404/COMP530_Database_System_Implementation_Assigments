@@ -1,0 +1,48 @@
+# ---- system ----
+.DS_Store
+Thumbs.db
+
+# ---- C/C++ ----
+*.o
+*.out
+*.exe
+*.obj
+*.so
+*.dll
+*.a
+
+# ---- Java ----
+*.class
+*.jar
+*.war
+*.ear
+
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+.env
+.venv
+venv/
+ENV/
+
+# ---- Node.js ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---- VSCode ----
+.vscode/
+.history/
+*.code-workspace
+
+# ---- others ----
+*.log
+*.tmp
+*.swp
+*.bak
+*.zip
