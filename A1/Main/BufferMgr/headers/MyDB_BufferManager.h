@@ -4,8 +4,19 @@
 
 #include "MyDB_PageHandle.h"
 #include "MyDB_Table.h"
+#include <vector>
+#include <unordered_map>
+#include <string>
 
 using namespace std;
+
+struct Page {
+	MyDB_TablePtr table;   // 指向 Table（如果是 anonymous 則為 nullptr）
+	long pageNum;          // page 編號（anonymous 則為 -1）
+	bool dirty;            // 是否被修改過
+	bool pinned;           // 是否被鎖定
+	void* bytes;           // 指向 buffer slot 的記憶體
+};
 
 class MyDB_BufferManager {
 
@@ -52,6 +63,16 @@ public:
 private:
 
 	// YOUR STUFF HERE
+	size_t pageSize;
+    size_t numPages;
+    string tempFile;
+
+    vector<Page*> pages;
+    unordered_map<string, Page*> lookup;
+    vector<bool> useBit;
+    int clockHand;
+
+    int findVictim(); 
 
 };
 

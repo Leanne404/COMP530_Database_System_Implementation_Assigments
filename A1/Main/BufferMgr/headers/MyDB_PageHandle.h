@@ -4,14 +4,17 @@
 
 #include <memory>
 
+
 // page handles are basically smart pointers
 using namespace std;
-class MyDB_PageHandleBase;
-typedef shared_ptr <MyDB_PageHandleBase> MyDB_PageHandle;
+class MyDB_BufferManager;
+struct Page;               // 告訴編譯器有個 struct Page 存在
 
 class MyDB_PageHandleBase {
 
 public:
+	MyDB_PageHandleBase(Page* pageIn, MyDB_BufferManager* mgrIn)
+	: page(pageIn), mgr(mgrIn) {}
 
 	// THESE METHODS MUST BE IMPLEMENTED WITHOUT CHANGING THE DEFINITION
 
@@ -38,7 +41,11 @@ public:
 private:
 
 	// YOUR CODE HERE
+	Page* page;
+    MyDB_BufferManager* mgr;
 };
+
+typedef shared_ptr<MyDB_PageHandleBase> MyDB_PageHandle;
 
 #endif
 
