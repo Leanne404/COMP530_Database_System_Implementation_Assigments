@@ -10,7 +10,7 @@ using namespace std;
 class MyDB_BufferManager;
 struct Page;               // 告訴編譯器有個 struct Page 存在
 
-class MyDB_PageHandleBase {
+class MyDB_PageHandleBase : public enable_shared_from_this<MyDB_PageHandleBase> {
 
 public:
 	MyDB_PageHandleBase(Page* pageIn, MyDB_BufferManager* mgrIn)
@@ -37,6 +37,8 @@ public:
 	~MyDB_PageHandleBase ();
 
 	// FEEL FREE TO ADD ADDITIONAL PUBLIC METHODS
+    void setPinned(bool val);
+    bool isPinned() const;
 
 private:
 

@@ -16,6 +16,7 @@ struct Page {
 	bool dirty;            // 是否被修改過
 	bool pinned;           // 是否被鎖定
 	void* bytes;           // 指向 buffer slot 的記憶體
+	int slotIndex;         // 在 buffer 的位置
 };
 
 class MyDB_BufferManager {
@@ -59,6 +60,11 @@ public:
 	~MyDB_BufferManager ();
 
 	// FEEL FREE TO ADD ADDITIONAL PUBLIC METHODS 
+	
+    size_t getPageSize() const { return pageSize; }
+
+
+
 
 private:
 
@@ -73,6 +79,15 @@ private:
     int clockHand;
 
     int findVictim(); 
+	// 幫助函式：把非匿名 dirty 頁寫回對應 table 檔
+	void writeBack(Page* p);
+	// 幫助函式：清掉某個 slot 目前的頁（會負責 flush/lookup/free/delete）
+	void evictSlot(int slot);
+	// 幫助函式：組 key（tableName_pageNum）
+	static inline string makeKey(const MyDB_TablePtr& t, long i) {
+		return t->getName() + "_" + to_string(i);
+	}
+
 
 };
 
