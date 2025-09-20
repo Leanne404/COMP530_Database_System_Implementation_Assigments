@@ -8,8 +8,6 @@
 
 using namespace std;
 
-// ========== helpers ==========
-
 void MyDB_BufferManager::writeBack(Page* p) {
     if (!p || !p->dirty) return;
     if (p->table == nullptr) {
@@ -73,7 +71,6 @@ void MyDB_BufferManager::evictSlot(int slot) {
     pages[slot] = nullptr;
 }
 
-// ========== CLOCK：找受害者 ==========
 int MyDB_BufferManager::findVictim() {
     while (true) {
         // 空槽：直接用
@@ -102,8 +99,6 @@ int MyDB_BufferManager::findVictim() {
         return victimSlot;
     }
 }
-
-// ========== public API ==========
 
 MyDB_PageHandle MyDB_BufferManager::getPage(MyDB_TablePtr whichTable, long i) {
     string key = makeKey(whichTable, i);
